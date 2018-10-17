@@ -1,0 +1,61 @@
+apply from: '../version.gradle'
+
+buildscript {
+       ext {
+              springBootVersion = '2.0.4.RELEASE'
+       }
+       repositories {
+              mavenCentral()
+       }
+       dependencies {
+              classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+       }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'skus-webservice'
+version = "$artifect_version" + '_' + "$build_date"
+
+repositories {
+       mavenCentral()
+}
+
+ext {
+       springCloudVersion = 'Finchley.SR1'
+}
+
+springBoot  {
+    mainClassName = 'com.skus.webservice.WebserviceApplication'
+}
+
+dependencies {
+	compile project(':skus-repository')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")    
+    compile "org.apache.tomcat.embed:tomcat-embed-jasper:9.0.12"
+    
+	compile "io.springfox:springfox-swagger2:2.9.2"
+	compile "io.springfox:springfox-swagger-ui:2.9.2"
+
+	compile "io.rest-assured:json-path:3.1.0"
+	compile "javax.servlet:jstl:1.2"
+
+	testCompile "io.rest-assured:rest-assured:3.1.0"
+	testCompile "io.rest-assured:json-schema-validator:3.1.0"
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+
+}
+
+bootRun {
+	main = 'com.skus.webservice.WebserviceApplication'
+}

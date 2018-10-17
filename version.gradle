@@ -1,0 +1,10 @@
+ext{
+    artifect_version='1.0.0'
+    build_date=getDate()    
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('dd_MM_yyyy')
+    return formattedDate
+}

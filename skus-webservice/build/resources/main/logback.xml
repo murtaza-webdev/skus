@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+	<property name="LOG_HOME" value="/skuslogs" />
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="LOG_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/skus-webservice.log</file>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_HOME}/archived/skus-webservice.log.%d{yyyy-MM-dd}.%i.gz
+                        </fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+        <encoder>
+            <pattern>%date |%-5level| [%thread] [%file:%line] - %msg%n%ex{full}</pattern>
+        </encoder>
+
+	</appender>
+	
+	<root>
+        <level value="DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="LOG_FILE"/>
+    </root>
+	
+	<!-- Third Parties Logs -->
+	
+    <logger name="ch.qos.logback">
+        <level value="WARN"/>
+    </logger>
+    
+    <logger name="org.hibernate">
+        <level value="INFO"/>
+    </logger>
+    
+    <logger name="org.springframework">
+        <level value="INFO"/>
+    </logger>
+    
+    <logger name="org.springframework.web">
+        <level value="INFO"/>
+    </logger>
+    
+    <logger name="com.skus">
+        <level value="DEBUG"/>
+    </logger>   
+</configuration>

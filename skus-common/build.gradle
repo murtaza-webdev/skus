@@ -1,0 +1,35 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'skus-common'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile ("org.json:json:20180813")
+	compile ('org.springframework.boot:spring-boot-starter-web')
+	compile ('commons-lang:commons-lang:2.6')
+	compile ('org.apache.commons:commons-lang3:3.0')
+	
+}
+
+
+dependencyManagement {
+	imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
+}

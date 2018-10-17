@@ -1,0 +1,9 @@
+include ':skus-common'
+include ':skus-entity'
+include ':skus-repository'
+include ':skus-webservice'
+
+project(':skus-common'	 ).projectDir = new File(settingsDir, 'skus-common'	 )
+project(':skus-entity'    ).projectDir = new File(settingsDir, 'skus-entity'    )
+project(':skus-repository').projectDir = new File(settingsDir, 'skus-repository')
+project(':skus-webservice'        ).projectDir = new File(settingsDir, 'skus-webservice'        )
